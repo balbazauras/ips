@@ -1,0 +1,14 @@
+{% extends 'service/main.html' %} {% load static%} {% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h1 class="mt-2">System creation form</h1>
+      <hr class="mt-0 mb-4" />
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {{form.as_p}}
+        <button type="submit" class="btn btn-success">Save Product</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

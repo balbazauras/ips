@@ -1,0 +1,12 @@
+{% extends 'service/main.html' %} {% load static%} {% block content %}
+<div class="row">
+  <div class="card card-body col-md-7 mx-auto mt-4">
+    <div class="card card-body">
+      <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %} {{form.as_p}}
+        <input type="submit" name="Submit" class="btn btn-primary" />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

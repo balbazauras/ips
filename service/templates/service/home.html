@@ -1,0 +1,45 @@
+{% extends 'service/main.html' %}
+{% load static %}
+{% block content %}
+<div class="pagetitle">
+  <h1>Dashboard</h1>
+</div>
+<div class="row">
+  <div class="col-md-7 mx-auto mt-4">
+    <div class="card card-body">
+      <h2>All user's systems</h2>
+      <div class="card card-body">
+        <form action="{% url 'home' %}" method="get">
+          <input name="q" type="text" placeholder="Search..." />
+        </form>
+        <table class="table table-sm">
+          <tr>
+            <th>System name</th>
+            <th>System location</th>
+            <th>Action</th>
+          </tr>
+          {% for system in systems %}
+          <tr>
+            <td>{{ system.name}}</td>
+            <td>{{ system.location}}</td>
+            <td>
+              <a href="{% url 'system_page' system.id %}"><button type="button"
+                  class="btn btn-primary">View</button></a>
+              <a href="{% url 'update_system' system.id %}"><button type="button"
+                  class="btn btn-warning">Edit</button></a>
+              <a href="{% url 'delete_system' system.id %}"><button type="button"
+                  class="btn btn-danger">Delete</button></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="{% url 'create_system' user.id %}"><button type="button" class="btn btn-primary mt-4">
+            Create system
+          </button></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
