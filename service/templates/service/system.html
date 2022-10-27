@@ -17,7 +17,9 @@
           </tr>
           {% for sensor in sensors %}
           <tr>
+            {% if person.image %}
             <td><img src="{{ sensor.image.url}}" class="system_image" /></td>
+            {% endif %}
             <td>{{ sensor.name}}</td>
             <td>{{ sensor.type}}</td>
             <td>
