@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from service.models import DataEntry
-from .serializers import DataEntrySerializer
+from service.models import DataEntry, Sensor
+from .serializers import DataEntrySerializer, SensorSerializer
 
 # Create your views here.
 
@@ -31,15 +31,23 @@ def sensor_data(request):
 
 @api_view(['GET'])
 def get_all_sensor_data(request):
-    if request.method == 'GET' and 'number_of_values' in request.GET:
+    if 'number_of_values' in request.GET:
         sensor_id = request.query_params.get('sensor-id')
         number_of_values = request.query_params.get('number_of_values')
         filtered_data = DataEntry.objects.filter(
             sensor__exact=sensor_id).order_by('-date')[:int(number_of_values)]
         serializer = DataEntrySerializer(filtered_data, many=True)
         return Response(serializer.data)
-    elif request.method == 'GET':
+    else:
         sensor_id = request.query_params.get('sensor-id')
         filtered_data = DataEntry.objects.filter(sensor__exact=sensor_id)
         serializer = DataEntrySerializer(filtered_data, many=True)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_sensor_params(request):
+    sensor_id = request.query_params.get('sensor-id')
+    single_sensor = Sensor.objects.get(id__exact=sensor_id)
+    serializer = SensorSerializer(single_sensor)
+    return Response(serializer.data)
