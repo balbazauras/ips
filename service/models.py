@@ -38,7 +38,7 @@ class System(TimeStampedModel):
     inspection_interval = models.DateTimeField(null=True)
     location = models.CharField(max_length=200, null=True)
     technician = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     documentation = models.FileField(blank=True, upload_to='documentation/')
 
     def __str__(self):
@@ -61,7 +61,7 @@ class Sensor(TimeStampedModel):
     manufacturer = models.CharField(max_length=200, null=True, blank=True)
     date_of_installation = models.DateTimeField(null=True)
     type = models.CharField(max_length=200, choices=TYPES, null=True)
-    system = models.ForeignKey(System, on_delete=models.DO_NOTHING)
+    system = models.ForeignKey(System, on_delete=models.CASCADE)
     value_lower = models.DecimalField(
         decimal_places=2, max_digits=10, null=True)
     value_upper = models.DecimalField(
@@ -76,7 +76,7 @@ class Sensor(TimeStampedModel):
 
 class DataEntry(models.Model):
     value = models.DecimalField(decimal_places=2, max_digits=10)
-    sensor = models.ForeignKey(Sensor, on_delete=models.DO_NOTHING)
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
     arduino_date = models.DateTimeField(blank=True, null=True)
     server_date = models.DateTimeField(auto_now_add=True)
 
