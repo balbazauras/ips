@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'bootstrap5',
     'dynamic_breadcrumbs',
     'storages',
-
 ]
 
 MIDDLEWARE = [
