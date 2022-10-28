@@ -17,8 +17,12 @@
           </tr>
           {% for sensor in sensors %}
           <tr>
-            {% if person.image %}
+            {% if sensor.image %}
             <td><img src="{{ sensor.image.url}}" class="system_image" /></td>
+            {% else %}
+            <td><img src="{% static '/images/sensor.png'%}" class="system_image" /></td>
+
+
             {% endif %}
             <td>{{ sensor.name}}</td>
             <td>{{ sensor.type}}</td>
@@ -28,7 +32,7 @@
               <a href="{% url 'update_sensor' sensor.id %}"><button type="button"
                   class="btn btn-warning">Edit</button></a>
               <a href="{% url 'delete_sensor' sensor.id %}"><button type="button" class="btn btn-danger">Delete</button>
-                </aŽŽ>
+              </a>
             </td>
           </tr>
           {% endfor %}

@@ -43,7 +43,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'messuring-vault.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'messuring-vault.herokuapp.com', '192.168.2.127']
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'bootstrap5',
     'dynamic_breadcrumbs',
     'storages',
-
 ]
 
 MIDDLEWARE = [
@@ -144,7 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Vilnius'
 
 USE_I18N = True
 
@@ -188,6 +187,5 @@ AWS_DEFAULT_ACL = None
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_REGION_NAME = 'eu-north-1'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-TIME_ZONE = 'Europe/Vilnius'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 USE_TZ = True

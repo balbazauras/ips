@@ -29,6 +29,7 @@ def sensor(request, pk):
         Avg('value'))['value__avg']
     delta_time = sensor_data.aggregate(
         average_delta=Avg(F('server_date') - F('arduino_date')))
+
     context = {
         'sensor': single_sensor,
         'data': sensor_data,
