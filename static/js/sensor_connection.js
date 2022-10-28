@@ -3,6 +3,7 @@ $("#sensorConnect").bootstrapSwitch({
     alert(state);
   },
 });
+
 function waitForSocketConnection(socket) {
   setTimeout(function () {
     if (socket.readyState === 0) {

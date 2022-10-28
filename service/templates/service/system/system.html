@@ -1,0 +1,62 @@
+{% extends 'service/home.html' %} {% load static%} {% block content %}
+<link rel="stylesheet" href="{% static '/css/system_page.css' %}">
+<div class="pagetitle">
+  <h1>Dashboard</h1>
+</div><!-- End Page Title -->
+<div class="row">
+  <div class="col-md-8 mx-auto mt-4">
+    <div class="card card-body">
+
+      <div class="card card-body">
+        <table class="table table-sm">
+          <tr>
+            <th>Image</th>
+            <th>Sensor name</th>
+            <th>Sensor type</th>
+            <th>Action</th>
+          </tr>
+          {% for sensor in sensors %}
+          <tr>
+            {% if sensor.image %}
+            <td><img src="{{ sensor.image.url}}" class="system_image" /></td>
+            {% else %}
+            <td><img src="{% static '/images/sensor.png'%}" class="system_image" /></td>
+
+
+            {% endif %}
+            <td>{{ sensor.name}}</td>
+            <td>{{ sensor.type}}</td>
+            <td>
+              <a href="{% url 'sensor_page' sensor.id %}"><button type="button"
+                  class="btn btn-primary">View</button></a>
+              <a href="{% url 'update_sensor' sensor.id %}"><button type="button"
+                  class="btn btn-warning">Edit</button></a>
+              <a href="{% url 'delete_sensor' sensor.id %}"><button type="button" class="btn btn-danger">Delete</button>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="{% url 'create_sensor' system.id %}"><button type="button" class="btn btn-primary mt-4">
+            Create sensor
+          </button></a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>System name: {{system.name}}</h3>
+        <h6>System type: {{system.type}}</h6>
+        <h6>System manufacturer: {{system.manufacturer}}</h6>
+        <h6>System location: {{system.location}}</h6>
+        <h6>System date_next_inspection: {{system.date_next_inspection}}</h6>
+        <h6>System documentation: {{system.documentation}}</h6>
+        <h6>System description: {{system.description}}</h6>
+      </div>
+    </div>
+  </div>
+
+  {% endblock content %}

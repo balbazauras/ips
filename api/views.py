@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from service.models import DataEntry, Sensor
 from .serializers import DataEntrySerializer, SensorSerializer
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -48,6 +49,6 @@ def get_all_sensor_data(request):
 @api_view(['GET'])
 def get_sensor_params(request):
     sensor_id = request.query_params.get('sensor-id')
-    single_sensor = Sensor.objects.get(id__exact=sensor_id)
+    single_sensor = Sensor.objects.get(id=sensor_id)
     serializer = SensorSerializer(single_sensor)
-    return Response(serializer.data)
+    return JsonResponse(serializer.data)
