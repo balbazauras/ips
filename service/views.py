@@ -4,19 +4,41 @@ from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, F
+from rest_framework.decorators import api_view
 # Create your views here.
 
 
 @login_required(login_url='login')
+@api_view(['GET'])
 def home(request):
-    systems = request.user.system_set.all()
+    """Show systems assigned to technician"""
     technician = request.user
-    technician = request.user
+    if request.query_params.get('q') is not None:
+        q = request.query_params.get('q')
+        systems = request.user.system_set.all().filter(name__icontains=q)
+    else:
+        systems = request.user.system_set.all()
     context = {
         'systems': systems,
         'technician': technician,
     }
     return render(request, 'service/home.html', context)
+
+
+@login_required(login_url='login')
+@api_view(['GET'])
+def system(request, pk):
+    """Shows sensors assigned to a single system """
+    single_system = System.objects.get(id=pk)
+    sensors = single_system.sensor_set.all()
+    if request.query_params.get('q') is not None:
+        q = request.query_params.get('q')
+        sensors = sensors.filter(name__icontains=q)
+    context = {
+        'system': single_system,
+        'sensors': sensors,
+    }
+    return render(request, 'service/system.html', context)
 
 
 @login_required(login_url='login')
@@ -29,7 +51,6 @@ def sensor(request, pk):
         Avg('value'))['value__avg']
     delta_time = sensor_data.aggregate(
         average_delta=Avg(F('server_date') - F('arduino_date')))
-
     context = {
         'sensor': single_sensor,
         'data': sensor_data,
@@ -38,18 +59,6 @@ def sensor(request, pk):
         'delta_time': delta_time['average_delta'],
     }
     return render(request, 'service/sensor.html', context)
-
-
-@login_required(login_url='login')
-def system(request, pk):
-    """Shows all sensors assigned to a single system """
-    single_system = System.objects.get(id=pk)
-    sensors = single_system.sensor_set.all()
-    context = {
-        'system': single_system,
-        'sensors': sensors,
-    }
-    return render(request, 'service/system.html', context)
 
 
 def create_system(request, pk):
@@ -129,10 +138,8 @@ def register_page(request):
 
 def login_page(request):
     if request.user.is_authenticated:
-        print("Authenticated")
         return redirect('home')
     else:
-        print("!Authenticated")
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')

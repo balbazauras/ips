@@ -9,8 +9,11 @@
     <div class="card card-body">
       <h2>All user's systems</h2>
       <div class="card card-body">
-        <form action="{% url 'home' %}" method="get">
-          <input name="q" type="text" placeholder="Search..." />
+        <form action="" method="get">
+          {% csrf_token %}
+          <label for="q">Enter system name: </label>
+          <input id="q" type="text" name="q">
+          <input type="submit" value="Search">
         </form>
         <table class="table table-sm">
           <tr>
