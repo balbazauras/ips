@@ -1,4 +1,4 @@
-{% extends 'service/main.html' %}
+{% extends 'service/main.html' %} {% load bootstrap %}
 {% load static %}
 {% block content %}
 <div class="pagetitle">
@@ -9,12 +9,13 @@
     <div class="card card-body">
       <h2>All user's systems</h2>
       <div class="card card-body">
-        <form action="" method="get">
-          {% csrf_token %}
-          <label for="q">Enter system name: </label>
-          <input id="q" type="text" name="q">
+        <form method="get">
+          <label for="search">Enter system name: </label>
+          <input id="search" type="text" name="search">
           <input type="submit" value="Search">
         </form>
+        {{ filter.form }}
+
         <table class="table table-sm">
           <tr>
             <th>System name</th>

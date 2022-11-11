@@ -5,6 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, F
 from rest_framework.decorators import api_view
+from rest_framework import filters, generics
+from rest_framework.filters import SearchFilter
+from .serializers import SystemSerializer, SensorSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from .filter import SystemFilter
 # Create your views here.
 
 
@@ -12,15 +17,14 @@ from rest_framework.decorators import api_view
 @api_view(['GET'])
 def home(request):
     """Show systems assigned to technician"""
-    technician = request.user
-    if request.query_params.get('q') is not None:
-        q = request.query_params.get('q')
-        systems = request.user.system_set.all().filter(name__icontains=q)
+    if request.query_params.get('search') is not None:
+        search = request.query_params.get('search')
+        systems = request.user.system_set.all().filter(name__icontains=search)
     else:
         systems = request.user.system_set.all()
     context = {
         'systems': systems,
-        'technician': technician,
+        'technician': request.user,
     }
     return render(request, 'service/home.html', context)
 
@@ -127,7 +131,7 @@ def register_page(request):
         return redirect('home')
     else:
         form = CreateUserForm()
-        if(request.method == 'POST'):
+        if request.method == 'POST':
             form = CreateUserForm(request.POST)
             if form.is_valid():
                 form.save()
@@ -172,7 +176,6 @@ def web_socket(request):
 def create_sensor(request, pk):
     """Creates single system """
     system = System.objects.get(id=pk)
-
     form = SensorForm(initial={'system': system})
     if request.method == 'POST':
         form = SensorForm(request.POST)

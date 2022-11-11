@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     'bootstrap5',
     'dynamic_breadcrumbs',
     'storages',
+    'django_filters',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +102,7 @@ TEMPLATES = [
 ]
 REST_FRAMEWORK = {
     'COERCE_DECIMAL_TO_STRING': False,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
@@ -113,7 +116,7 @@ DATABASES = {
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASS'),
-        'HOST': 'ec2-52-212-228-71.eu-west-1.compute.amazonaws.com',
+        'HOST': env('DATABASE_HOST'),
         'PORT': '5432',
     }
 }

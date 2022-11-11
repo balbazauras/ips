@@ -1,9 +1,14 @@
-from .models import DataEntry
-from django.forms import ModelForm
 from rest_framework import serializers
+from service.models import System, Sensor
 
 
-class DataEntrySerializer(serializers.ModelSerializer):
+class SystemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DataEntry
+        model = System
+        fields = '__all__'
+
+
+class SensorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sensor
         fields = '__all__'
