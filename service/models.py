@@ -18,8 +18,6 @@ class TimeStampedModel(models.Model):
 
 
 class Technician(AbstractUser):
-    phone_number = models.IntegerField(null=True, unique=True, blank=True)
-
     def __str__(self):
         return self.username
 
@@ -34,8 +32,6 @@ class System(TimeStampedModel):
     name = models.CharField(max_length=200, unique=True, null=True)
     description = models.TextField(null=True, blank=True)
     manufacturer = models.CharField(max_length=200, null=True, blank=True)
-    date_next_inspection = models.DateTimeField(null=True)
-    inspection_interval = models.DateTimeField(null=True)
     location = models.CharField(max_length=200, null=True)
     technician = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -59,14 +55,16 @@ class Sensor(TimeStampedModel):
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(null=True, blank=True)
     manufacturer = models.CharField(max_length=200, null=True, blank=True)
-    date_of_installation = models.DateTimeField(null=True)
     type = models.CharField(max_length=200, choices=TYPES, null=True)
     system = models.ForeignKey(System, on_delete=models.CASCADE)
+    port = models.IntegerField()
+    ipadress=models.GenericIPAddressField()
+    check_interval=models.IntegerField()
+    normal_interval=models.IntegerField()
     value_lower = models.DecimalField(
         decimal_places=2, max_digits=10, null=True)
     value_upper = models.DecimalField(
         decimal_places=2, max_digits=10, null=True)
-    interval = models.IntegerField()
     image = models.ImageField(blank=True, upload_to='images/')
     documentation = models.FileField(blank=True, upload_to='documentation/')
 
