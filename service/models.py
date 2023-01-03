@@ -58,9 +58,11 @@ class Sensor(TimeStampedModel):
     type = models.CharField(max_length=200, choices=TYPES, null=True)
     system = models.ForeignKey(System, on_delete=models.CASCADE)
     port = models.IntegerField()
-    ipadress=models.GenericIPAddressField()
-    check_interval=models.IntegerField()
-    normal_interval=models.IntegerField()
+    ipadress = models.GenericIPAddressField()
+    check_interval = models.IntegerField()
+    normal_interval = models.IntegerField()
+    modifier = models.DecimalField(
+        decimal_places=2, max_digits=10, null=True)
     value_lower = models.DecimalField(
         decimal_places=2, max_digits=10, null=True)
     value_upper = models.DecimalField(

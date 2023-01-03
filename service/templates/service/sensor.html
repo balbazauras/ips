@@ -3,30 +3,23 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <title>Sensor</title>
 <div class="pagetitle">
-</div><!-- End Page Title -->
+</div>
 <div class="row">
-
-  <!-- Left side columns -->
   <div class="col-lg-8">
     <div class="row">
-
-      <!-- Sales Card -->
       <div class="col-xxl-4 col-md-6">
         <div class="card info-card sales-card">
-
           <div class="filter">
             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <li class="dropdown-header text-start">
                 <h6>Filter</h6>
               </li>
-
               <li><a class="dropdown-item" href="#">Today</a></li>
               <li><a class="dropdown-item" href="#">This Month</a></li>
               <li><a class="dropdown-item" href="#">This Year</a></li>
             </ul>
           </div>
-
           <div class="card-body">
             <h5 class="card-title">Data entries</h5>
             <div class="d-flex align-items-center">
@@ -36,15 +29,11 @@
               <div class="ps-3">
                 <h6>{{number_of_entries}}</h6>
                 <span class="text-muted small pt-2 ps-1">Number of entries</span>
-
               </div>
             </div>
           </div>
-
         </div>
-      </div><!-- End Sales Card -->
-
-      <!-- Revenue Card -->
+      </div>
       <div class="col-xxl-4 col-md-6">
         <div class="card info-card revenue-card">
           <div class="filter">
@@ -53,16 +42,13 @@
               <li class="dropdown-header text-start">
                 <h6>Filter</h6>
               </li>
-
               <li><a class="dropdown-item" href="#">Today</a></li>
               <li><a class="dropdown-item" href="#">This Month</a></li>
               <li><a class="dropdown-item" href="#">This Year</a></li>
             </ul>
           </div>
-
           <div class="card-body">
             <h5 class="card-title">Average value</h5>
-
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-plus-slash-minus"></i>
@@ -70,63 +56,45 @@
               <div class="ps-3">
                 <h6>{{average_value|floatformat:2}}</h6>
                 <span class="text-muted small pt-2 ps-1">Average between all data entries</span>
-
               </div>
             </div>
           </div>
-
         </div>
-      </div><!-- End Revenue Card -->
-
-      <!-- Customers Card -->
+      </div>
       <div class="col-xxl-4 col-xl-12">
-
         <div class="card info-card customers-card">
-
           <div class="filter">
             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <li class="dropdown-header text-start">
                 <h6>Filter</h6>
               </li>
-
               <li><a class="dropdown-item" href="#">Today</a></li>
               <li><a class="dropdown-item" href="#">This Month</a></li>
               <li><a class="dropdown-item" href="#">This Year</a></li>
             </ul>
           </div>
-
           <div class="card-body">
             <h5 class="card-title">Average delta time</h5>
-
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-calendar-range"></i>
               </div>
               <div class="ps-3">
                 <h6>{{delta_time.seconds}} <span class="text-muted small pt-2 ps-1">seconds</span></h6>
-
-
-
               </div>
             </div>
-
           </div>
         </div>
-
-      </div><!-- End Customers Card -->
-
-      <!-- Data table-->
+      </div>
       <div class="col-12">
         <div class="card recent-sales overflow-auto">
-
           <div class="filter">
             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <li class="dropdown-header text-start">
                 <h6>Filter</h6>
               </li>
-
               <li><a class="dropdown-item" href="#">Today</a></li>
               <li><a class="dropdown-item" href="#">This Month</a></li>
               <li><a class="dropdown-item" href="#">This Year</a></li>
@@ -150,8 +118,6 @@
                 <label>Date end</label>
                 <input type="datetime-local" id="date_end" required />
               </div>
-
-
             </form>
             <button class="btn btn-primary" onclick="updateChart({{sensor.id}})">Filter data</button>
           </div>
@@ -169,34 +135,41 @@
                 </tr>
               </thead>
             </table>
-
           </div>
-
         </div>
       </div>
-      <!--End data table-->
-      <!-- Data chart-->
       <div class="col-12">
         <div class="card top-selling overflow-auto">
           <div class="card-body pb-0">
             <h5 class="card-title">Data chart</h5>
-            <canvas id="myChart"></canvas>
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
-      <!--End data chart-->
     </div>
-  </div><!-- End Left side columns -->
-
-  <!-- Right side columns -->
+  </div>
   <div class="col-lg-4">
     <div class="card ">
       <div class="card-body">
-        <h6 class="card-title">Get live data</h6>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="sensorConnect">
-          <label class="form-check-label" for="sensorConnect">Connect to sensor</label>
+        <h6 class="card-title">Sensor info</h6>
+        <div class="card-body">
+          
+          
+          <p>Sensor name: {{sensor.name}}</p> 
+          <p>Sensor description: {{sensor.description}}</p> 
+          <p>Sensor manufacturer: {{sensor.manufacturer}}</p> 
+          <p>Sensor type: {{sensor.type}}</p> 
+          <p>Sensor port: {{sensor.port}}</p> 
+          <p>Sensor ipadress: {{sensor.ipadress}}</p> 
+          <p>Sensor documentation: {{sensor.documentation}}</p> 
         </div>
+      </div>
+    </div>
+    <div class="card ">
+      <div class="card-body">
+        <h6 class="card-title">Get live data</h6>
         <div class="card-body">
           <p>Value from sensor: <span id="value">-</span></p>
           <p>Connection status: <span class="text-success small pt-1 fw-bold" id="status"></span>
@@ -205,58 +178,52 @@
           <button class="btn btn-primary " onclick="init()">Make connection</button>
         </div>
       </div>
-
     </div>
-
     <div class="card">
       <div class="card-body ">
         <h6 class="card-title">Sensor data</h6>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Sensor id</span>
-          </div>
-          <input type="text" class="form-control" placeholder="{{sensor.id}}" aria-label="Username"
-            aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Sensor lower value</span>
           </div>
           <input type="text" class="form-control" placeholder="{{sensor.value_lower}}" id="value_lower"
-            aria-label="Username" aria-describedby="basic-addon1">
+             aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Sensor upper value</span>
           </div>
           <input type="text" class="form-control" placeholder="{{sensor.value_upper}}" id="value_upper"
-            aria-label="Username" aria-describedby="basic-addon1">
+             aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Sensor interval</span>
+            <span class="input-group-text" id="basic-addon1">Sensor normal interval</span>
           </div>
-          <input type="text" class="form-control" placeholder="{{sensor.interval}}" aria-label="Username"
+          <input type="text" class="form-control" placeholder="{{sensor.normal_interval}}" id="normal_interval"
+            aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Sensor check interval</span>
+          </div>
+          <input type="text" class="form-control" placeholder="{{sensor.check_interval}}" id="check_interval"
             aria-describedby="basic-addon1">
         </div>
         <div class="text-center">
           <button class="btn btn-primary " onclick="sendToSensor()">Send data</button>
         </div>
       </div>
-
     </div>
   </div>
-
 </div>
 <div id="url_container" data-posts-url="{% url 'api:get_data' %}"></div>
 <div id="url_container_first" data-posts-url="{% url 'api:get_all_data' %}"></div>
-<div id="sensor_container" data-posts-url="{{sensor.id}}"></div>
-<!--
-
-  <script src="{% static '/js/sensor_connection.js' %}" type="text/javascript"></script>
-
-
-  -->
+<div id="sensor_id_container" data-sensor-id="{{sensor.id}}"></div>
+<div id="sensor_ip_container" data-sensor-ip="{{sensor.ipadress}}"></div>
+<div id="sensor_port_container" data-sensor-port="{{sensor.port}}"></div>
+<div id="sensor_value_lower" data-value-lower="{{sensor.value_lower}}"></div>
+<div id="sensor_value_upper" data-value-upper="{{sensor.value_upper}}"></div>
 <script src="{% static '/js/sensor_page.js' %}" type="text/javascript"></script>
 <script src="{% static '/js/sensor_connection.js' %}" type="text/javascript"></script>
 {% endblock content %}

@@ -1,8 +1,5 @@
-$("#sensorConnect").bootstrapSwitch({
-  onSwitchChange: function (e, state) {
-    alert(state);
-  },
-});
+const sensor_ip_address = $("#sensor_ip_container");
+const sensor_port = $("#sensor_port_container");
 
 function waitForSocketConnection(socket) {
   setTimeout(function () {
@@ -31,6 +28,8 @@ function sendToSensor() {
     let msg = {
       value_lower: document.getElementById("value_lower").value,
       value_upper: document.getElementById("value_upper").value,
+      normal_interval: document.getElementById("normal_interval").value,
+      check_interval: document.getElementById("check_interval").value,
     };
     socket.send(JSON.stringify(msg));
   }
@@ -38,7 +37,8 @@ function sendToSensor() {
 var checkConInterval = 100; //time interval between checks for websocket connection
 var socket;
 function init() {
-  socket = new WebSocket("ws://" + "192.168.2.127" + ":81/");
+  socket = new WebSocket("ws://" + sensor_ip_address.data("sensor-ip") + ":" + sensor_port.data("sensor-port") + "/");
+  console.log(socket);
   waitForSocketConnection(socket);
   socket.onmessage = function (event) {
     processCommand(event);

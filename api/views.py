@@ -36,7 +36,7 @@ def get_all_sensor_data(request):
         sensor_id = request.query_params.get('sensor-id')
         number_of_values = request.query_params.get('number_of_values')
         filtered_data = DataEntry.objects.filter(
-            sensor__exact=sensor_id).order_by('-date')[:int(number_of_values)]
+            sensor__exact=sensor_id).order_by('-arduino_date')[:int(number_of_values)]
         serializer = DataEntrySerializer(filtered_data, many=True)
         return Response(serializer.data)
     else:

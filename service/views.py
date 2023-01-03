@@ -10,6 +10,7 @@ from rest_framework.filters import SearchFilter
 from .serializers import SystemSerializer, SensorSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from .filter import SystemFilter
+from django.forms.models import model_to_dict
 # Create your views here.
 
 
@@ -55,12 +56,14 @@ def sensor(request, pk):
         Avg('value'))['value__avg']
     delta_time = sensor_data.aggregate(
         average_delta=Avg(F('server_date') - F('arduino_date')))
+    object = model_to_dict(single_sensor)
     context = {
         'sensor': single_sensor,
         'data': sensor_data,
         'number_of_entries': number_of_entries,
         'average_value': average_value,
         'delta_time': delta_time['average_delta'],
+        'object':object,
     }
     return render(request, 'service/sensor.html', context)
 

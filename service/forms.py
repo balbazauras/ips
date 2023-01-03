@@ -8,7 +8,7 @@ from django import forms
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = Technician
-        fields = '__all__'
+        fields = ("username", "password1", "password2")
 
 
 class SystemForm(forms.ModelForm):
@@ -36,22 +36,6 @@ class SystemForm(forms.ModelForm):
         label='Systems manufacturer:',
         widget=forms.TextInput(attrs={'placeholder': 'SMC'})
     )
-
-    date_next_inspection = forms.DateField(
-        widget=forms.TextInput(
-            attrs={'type': 'date'}
-        )
-    )
-    inspection_interval = forms.DateField(
-        widget=forms.TextInput(
-            attrs={'type': 'date'}
-        )
-    )
-
-    technician = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
-    documentation = models.FileField(null=True)
-
     class Meta:
         model = System
         fields = '__all__'
