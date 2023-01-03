@@ -4,3 +4,8 @@ __pycache__/
 .env
 *.png
 venv
+/migrations/__init__.py
+**/**/migrations
+**/migrations/
+**/migrations/**
+env/
