@@ -11,4 +11,4 @@ class DataEntrySerializer(serializers.ModelSerializer):
 class SensorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sensor
-        fields = ['value_upper', 'value_lower', 'interval']
+        fields = ['value_upper', 'value_lower', 'check_interval','normal_interval']
